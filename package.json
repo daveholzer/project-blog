@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3004",
     "build": "next build",
-    "start": "next start",
+    "start": "next start -p 3004",
     "lint": "next lint",
     "new-component": "new-component"
   },
@@ -23,6 +23,7 @@
     "next-mdx-remote": "4.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-feather": "2.0.10"
+    "react-feather": "2.0.10",
+    "rss": "^1.2.2"
   }
 }

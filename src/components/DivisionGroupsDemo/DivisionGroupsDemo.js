@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import clsx from 'clsx';
+import { motion, MotionConfig } from 'framer-motion';
 
 import { range } from '@/utils';
 import Card from '@/components/Card';
@@ -8,6 +9,13 @@ import SliderControl from '@/components/SliderControl';
 
 import Equation from './Equation';
 import styles from './DivisionGroupsDemo.module.css';
+import { LayoutGroup } from 'framer-motion';
+
+const SPRING = {
+  type: 'spring',
+  stiffness: 200,
+  damping: 30,
+};
 
 function DivisionGroupsDemo({
   numOfItems = 12,
@@ -37,8 +45,12 @@ function DivisionGroupsDemo({
           gridTemplateColumns: '1fr 1fr',
           gridTemplateRows: '1fr 1fr',
         };
+        
+  const id = React.useId();
+  const factor = numOfGroups * numOfItemsPerGroup;
 
   return (
+    <MotionConfig reducedMotion='user'>
     <Card as="section" className={styles.wrapper}>
       <header className={styles.header}>
         <SliderControl
@@ -53,7 +65,7 @@ function DivisionGroupsDemo({
           }
         />
       </header>
-
+      <LayoutGroup>
       <div className={styles.demoWrapper}>
         <div
           className={clsx(styles.demoArea)}
@@ -62,9 +74,12 @@ function DivisionGroupsDemo({
           {range(numOfGroups).map((groupIndex) => (
             <div key={groupIndex} className={styles.group}>
               {range(numOfItemsPerGroup).map((index) => {
+                const layoutId = `${id}-${groupIndex*numOfItemsPerGroup+index}`
                 return (
-                  <div
-                    key={index}
+                  <motion.div
+                    layoutId={layoutId}
+                    transition={SPRING}
+                    key={layoutId}
                     className={styles.item}
                   />
                 );
@@ -80,13 +95,15 @@ function DivisionGroupsDemo({
             Remainder Area
           </p>
 
-          {range(remainder).map((index) => {
+          {range(factor, factor+remainder).reverse().map((index) => {
+            const layoutId = `${id}-${index}`
             return (
-              <div key={index} className={styles.item} />
+              <motion.div key={layoutId} layoutId={layoutId} className={styles.item} />
             );
           })}
         </div>
       )}
+    </LayoutGroup>
 
       <Equation
         dividend={numOfItems}
@@ -94,6 +111,7 @@ function DivisionGroupsDemo({
         remainder={remainder}
       />
     </Card>
+    </MotionConfig>
   );
 }
 

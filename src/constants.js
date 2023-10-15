@@ -1,4 +1,5 @@
 export const BLOG_TITLE = 'Bits & Bytes';
+export const NOT_FOUND_TITLE = '404 Not Found'
 
 export const LIGHT_COLORS = {
   '--color-text': 'hsl(0deg 0% 5%)',
