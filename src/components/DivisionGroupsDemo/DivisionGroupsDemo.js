@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import clsx from 'clsx';
-import { motion, MotionConfig } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import { range } from '@/utils';
 import Card from '@/components/Card';
@@ -47,10 +47,9 @@ function DivisionGroupsDemo({
         };
         
   const id = React.useId();
-  const factor = numOfGroups * numOfItemsPerGroup;
+  const totalInGroups = numOfGroups * numOfItemsPerGroup;
 
   return (
-    <MotionConfig reducedMotion='user'>
     <Card as="section" className={styles.wrapper}>
       <header className={styles.header}>
         <SliderControl
@@ -95,7 +94,7 @@ function DivisionGroupsDemo({
             Remainder Area
           </p>
 
-          {range(factor, factor+remainder).reverse().map((index) => {
+          {range(totalInGroups, totalInGroups+remainder).reverse().map((index) => {
             const layoutId = `${id}-${index}`
             return (
               <motion.div key={layoutId} layoutId={layoutId} className={styles.item} />
@@ -111,7 +110,6 @@ function DivisionGroupsDemo({
         remainder={remainder}
       />
     </Card>
-    </MotionConfig>
   );
 }
 

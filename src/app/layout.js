@@ -8,6 +8,7 @@ import { cookies } from 'next/headers';
 
 import { LIGHT_TOKENS, DARK_TOKENS } from '@/constants';
 
+import MotionConfigWrapper from '@/components/MotionConfigWrapper';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import './styles.css';
@@ -30,6 +31,7 @@ function RootLayout({ children }) {
   const theme = savedTheme?.value || 'light';
 
   return (
+    <MotionConfigWrapper>
     <html
       lang="en"
       className={clsx(mainFont.variable, monoFont.variable)}
@@ -42,6 +44,7 @@ function RootLayout({ children }) {
         <Footer />
       </body>
     </html>
+    </MotionConfigWrapper>
   );
 }
 
